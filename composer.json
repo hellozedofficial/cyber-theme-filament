@@ -1,6 +1,6 @@
 {
     "name": "hellozedofficial/cyber-theme-filament",
-    "description": "Premium Cyber Glass theme and liquid UI enhancements for Filament 5",
+    "description": "Cyber Glass theme and liquid UI enhancements for Filament 5",
     "keywords": [
         "laravel",
         "filament",
@@ -13,7 +13,7 @@
         "theme"
     ],
     "homepage": "https://github.com/hellozedofficial/cyber-theme-filament",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "HelloZed",

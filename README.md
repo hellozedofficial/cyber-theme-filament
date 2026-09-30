@@ -1,8 +1,10 @@
-# Cyber Glass Theme for Filament
+# Cyber Glass Theme for Filament 🪟⚡
 
-A premium, futuristic **Cyber Glass & Liquid Glassmorphism** theme and UI plugin for **Filament 5** & **Laravel 11/12**, featuring authentic SVG chromatic dispersion, progressive blur headers, and physics-driven liquid interactions.
+An ultra-sleek, futuristic **Cyber Glass & Liquid Glassmorphism** theme and UI plugin for **Filament 5** & **Laravel 11/12**, featuring authentic SVG chromatic dispersion, progressive blur headers, and physics-driven liquid interactions.
 
-[![License](https://img.shields.io/badge/license-Proprietary%20%2F%20Commercial-red.svg?style=flat-square)](LICENSE.md)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/hellozedofficial/cyber-theme-filament.svg?style=flat-square)](https://packagist.org/packages/hellozedofficial/cyber-theme-filament)
+[![Total Downloads](https://img.shields.io/packagist/dt/hellozedofficial/cyber-theme-filament.svg?style=flat-square)](https://packagist.org/packages/hellozedofficial/cyber-theme-filament)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE.md)
 [![Filament](https://img.shields.io/badge/Filament-v5.0-amber.svg?style=flat-square)](https://filamentphp.com)
 [![PHP](https://img.shields.io/badge/PHP-%5E8.2%20%7C%20%5E8.3-blue.svg?style=flat-square)](https://php.net)
 
@@ -10,13 +12,13 @@ A premium, futuristic **Cyber Glass & Liquid Glassmorphism** theme and UI plugin
 
 ## Overview
 
-**Cyber Glass** is a next-generation, premium UI theme and enhancement suite designed exclusively for **Filament 5** and **Laravel 11/12**. Drawing deep inspiration from state-of-the-art fintech platforms like Revolut Business, high-end Apple glassmorphism, and cyberpunk optical aesthetics, Cyber Glass completely transcends conventional dashboard themes by introducing true optical physics and tactile fluidity to your admin panel.
+**Cyber Glass** is a next-generation, open-source UI theme and enhancement suite designed exclusively for **Filament 5** and **Laravel 11/12**. Drawing deep inspiration from state-of-the-art fintech platforms like Revolut Business, high-end Apple glassmorphism, and cyberpunk optical aesthetics, Cyber Glass completely transcends conventional dashboard themes by introducing true optical physics and tactile fluidity to your admin panel.
 
 Unlike basic backdrop-filter skins that merely tint containers, Cyber Glass features an authentic SVG-powered chromatic dispersion pipeline, specular refraction borders, and multi-layered depth. Every surface—from data tables and metric stat cards to slide-over drawers and dialog modals—radiates luminous refraction while maintaining flawless typographic legibility in both light and dark modes. An ambient cyber mesh aura gently illuminates the canvas background, harmonizing dynamically with your configured Filament primary color palette.
 
 Where Cyber Glass truly comes alive is in its physics-driven liquid interactions. Form elements are treated as fluid entities: toggle switches mimic mercury droplets sliding across frictionless glass with 22-stop spring elasticity; checkboxes pop with buoyant tactile feedback; and action buttons exhibit gelatinous squash-and-stretch compression accompanied by liquid light sweep beams on hover. The signature progressive faded header dissolves seamlessly from a crystalline top blur into an imperceptible mist, allowing dashboard content to glide effortlessly underneath.
 
-Engineered with pure CSS performance, hardware-accelerated transforms, and non-intrusive blade render hooks, Cyber Glass delivers a breathtaking, AAA-grade software aesthetic without sacrificing execution speed, responsiveness, or core Filament functionality. Elevate your application into a mesmerizing, luxury-grade digital experience that commands attention from the very first click.
+Engineered with pure CSS performance, hardware-accelerated transforms, and non-intrusive blade render hooks, Cyber Glass delivers a breathtaking aesthetic without sacrificing execution speed, responsiveness, or core Filament functionality. Elevate your application into a mesmerizing digital experience that commands attention from the very first click.
 
 ---
 
@@ -70,23 +72,12 @@ Experience the ultra-clean, high-contrast aesthetics in both Light and Dark mode
 
 ---
 
-## Installation (Commercial / Private Setup)
+## 📦 Installation
 
-Add this repository to your project's `composer.json`:
-
-```json
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "git@github.com:hellozedofficial/cyber-theme-filament.git"
-    }
-]
-```
-
-Then require the package:
+Install the package via Composer:
 
 ```bash
-composer require hellozedofficial/cyber-theme-filament:^1.0
+composer require hellozedofficial/cyber-theme-filament
 ```
 
 Optionally publish the configuration file:
@@ -97,7 +88,7 @@ php artisan vendor:publish --tag="filament-cyber-glass-config"
 
 ---
 
-## Usage
+## 🎨 Usage
 
 Register `CyberGlassPlugin` in your Filament Panel Provider (e.g. `app/Providers/Filament/AdminPanelProvider.php`):
 
@@ -124,7 +115,7 @@ public function panel(Panel $panel): Panel
 
 ---
 
-## Configuration (`config/cyber-glass.php`)
+## ⚙️ Configuration (`config/cyber-glass.php`)
 
 ```php
 return [
@@ -172,8 +163,27 @@ return [
 
 ---
 
-## Commercial License
+## 🛠 Local Development & Testing
 
-Copyright (c) HelloZed. All rights reserved.
+```bash
+# Start the live preview testbench server (http://127.0.0.1:8000/admin)
+composer serve
 
-This software is commercial and proprietary. Unauthorized copying, modification, redistribution, or sharing of this file/software, via any medium, is strictly prohibited without a valid commercial license agreement from HelloZed.
+# Run test suite
+composer test
+
+# Rebuild assets and testbench database
+composer build
+```
+
+---
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
