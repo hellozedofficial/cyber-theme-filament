@@ -20,28 +20,28 @@ Engineered with pure CSS performance, hardware-accelerated transforms, and non-i
 
 ---
 
-## 📸 Visual Showcase (Light vs. Dark Mode)
+## Visual Showcase (Light vs. Dark Mode)
 
 Experience the ultra-clean, high-contrast aesthetics in both Light and Dark modes.
 
-### 📊 1. Analytics Overview & Dynamic Charts
+### 1. Analytics Overview & Dynamic Charts
 | Light Mode | Dark Mode |
 | :---: | :---: |
 | <img src="art/dashboard-light.png" alt="Cyber Glass Dashboard - Light Mode" width="100%" /> | <img src="art/dashboard-dark.png" alt="Cyber Glass Dashboard - Dark Mode" width="100%" /> |
 
-### ⚡ 2. Interactive Data Tables & Liquid Controls
+### 2. Interactive Data Tables & Liquid Controls
 *Featuring liquid mercury toggles, crystal-clear checkboxes, and ambient row highlights.*
 | Light Mode | Dark Mode |
 | :---: | :---: |
 | <img src="art/table-light.png" alt="Users Table - Light Mode" width="100%" /> | <img src="art/table-dark.png" alt="Users Table - Dark Mode" width="100%" /> |
 
-### 🪟 3. Cyber Glass Dialog Modals & Form Controls
+### 3. Cyber Glass Dialog Modals & Form Controls
 *Specular glass refraction borders, non-intrusive backdrop blur, and squash-and-stretch buttons.*
 | Light Mode | Dark Mode |
 | :---: | :---: |
 | <img src="art/modal-light.png" alt="Edit User Modal - Light Mode" width="100%" /> | <img src="art/modal-dark.png" alt="Edit User Modal - Dark Mode" width="100%" /> |
 
-### 👤 4. Floating Account & Profile Glass Panels
+### 4. Floating Account & Profile Glass Panels
 | Light Mode | Dark Mode |
 | :---: | :---: |
 | <img src="art/profile-light.png" alt="Profile Modal - Light Mode" width="100%" /> | <img src="art/profile-dark.png" alt="Profile Modal - Dark Mode" width="100%" /> |
