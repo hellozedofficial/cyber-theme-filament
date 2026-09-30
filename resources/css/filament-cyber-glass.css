@@ -1,0 +1,922 @@
+/* ==========================================================================
+   Filament Liquid Glass - Authentic SVG Refraction & Chromatic Dispersion
+   Fluid Liquid Physics: Toggles, Checkboxes, Buttons, Sections & Modals
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Dynamic Tokens & SVG Refraction Filter Definitions
+   -------------------------------------------------------------------------- */
+:root, :host {
+    --glass-frost: 0.08;
+    --glass-saturation: 1.35;
+    --filter-id: url(#glass-filter-_r_b_);
+    --glass-blur: 24px;
+    --lg-header-blur: 32px;
+
+    /* Specular Refraction Shadows (Clean & Apple-pure) */
+    --lg-liquid-shadow-dark: 
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.35),
+        0 16px 36px -8px rgba(0, 0, 0, 0.60);
+
+    --lg-liquid-shadow-light: 
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.02),
+        0 10px 25px -6px rgba(0, 0, 0, 0.06),
+        0 2px 6px -1px rgba(0, 0, 0, 0.03);
+
+    /* Ambient Lighting Canvas */
+    --lg-bg-canvas-dark: #070b14;
+    --lg-glow-dark-primary: color-mix(in srgb, var(--color-primary-500, var(--primary-500, #f59e0b)) 32%, transparent);
+    --lg-glow-dark-secondary: rgba(124, 58, 237, 0.22);
+    --lg-glow-dark-ambient: rgba(14, 165, 233, 0.15);
+
+    --lg-bg-canvas-light: #f3f6fa;
+    --lg-glow-light-primary: color-mix(in srgb, var(--color-primary-500, var(--primary-500, #f59e0b)) 24%, transparent);
+    --lg-glow-light-secondary: rgba(147, 51, 234, 0.18);
+    --lg-glow-light-ambient: rgba(14, 165, 233, 0.16);
+
+    /* Liquid Spring Elastic Curve (Jhey 22-stop spring physics) */
+    --liquid-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Background Canvas & Rich Ambient Mesh Glow
+   -------------------------------------------------------------------------- */
+.fi-body {
+    background-color: var(--lg-bg-canvas-light) !important;
+    min-height: 100vh;
+    position: relative;
+}
+
+html.dark .fi-body,
+.dark .fi-body {
+    background-color: var(--lg-bg-canvas-dark) !important;
+}
+
+.fi-liquid-glass-glow-ambient {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.fi-lg-glow-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(100px);
+    -webkit-filter: blur(100px);
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Top Royal Blue Orb */
+.fi-lg-glow-royal-blue {
+    top: -100px;
+    left: 8%;
+    width: 800px;
+    height: 560px;
+    background: radial-gradient(circle, var(--lg-glow-light-primary) 0%, rgba(59, 130, 246, 0.15) 45%, transparent 70%);
+}
+
+html.dark .fi-lg-glow-royal-blue,
+.dark .fi-lg-glow-royal-blue {
+    background: radial-gradient(circle, var(--lg-glow-dark-primary) 0%, rgba(30, 64, 175, 0.2) 50%, transparent 70%);
+}
+
+/* Top Right Violet/Purple Orb */
+.fi-lg-glow-purple {
+    top: 20px;
+    right: 4%;
+    width: 720px;
+    height: 520px;
+    background: radial-gradient(circle, var(--lg-glow-light-secondary) 0%, rgba(168, 85, 247, 0.15) 45%, transparent 70%);
+}
+
+html.dark .fi-lg-glow-purple,
+.dark .fi-lg-glow-purple {
+    background: radial-gradient(circle, var(--lg-glow-dark-secondary) 0%, rgba(109, 40, 217, 0.2) 50%, transparent 70%);
+}
+
+/* Center Cyan Ambient Orb */
+.fi-lg-glow-center {
+    top: 40%;
+    left: 28%;
+    width: 600px;
+    height: 480px;
+    background: radial-gradient(circle, var(--lg-glow-light-ambient) 0%, rgba(6, 182, 212, 0.1) 40%, transparent 68%);
+}
+
+html.dark .fi-lg-glow-center,
+.dark .fi-lg-glow-center {
+    background: radial-gradient(circle, var(--lg-glow-dark-ambient) 0%, transparent 65%);
+}
+
+/* Hidden container for SVG dispersion & goo filters */
+.glass-surface__filter {
+    pointer-events: none;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: fixed;
+    z-index: -100;
+}
+
+/* --------------------------------------------------------------------------
+   3. Sidebar (100% Transparent, No Border)
+   -------------------------------------------------------------------------- */
+.fi-sidebar,
+.fi-sidebar-header,
+.fi-sidebar-header-ctn,
+.fi-sidebar-nav,
+.fi-sidebar-footer {
+    background: transparent !important;
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    --tw-ring-color: transparent !important;
+    --tw-ring-shadow: none !important;
+    outline: none !important;
+}
+
+html.dark .fi-sidebar,
+.dark .fi-sidebar,
+html.dark .fi-sidebar-header,
+.dark .fi-sidebar-header,
+html.dark .fi-sidebar-header-ctn,
+.dark .fi-sidebar-header-ctn,
+html.dark .fi-sidebar-nav,
+.dark .fi-sidebar-nav,
+html.dark .fi-sidebar-footer,
+.dark .fi-sidebar-footer {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.fi-sidebar-item-btn {
+    border-radius: 0.85rem !important;
+    transition: all 0.3s var(--liquid-spring) !important;
+}
+
+html.dark .fi-sidebar-item-active > .fi-sidebar-item-btn,
+.dark .fi-sidebar-item-active > .fi-sidebar-item-btn {
+    background: rgba(255, 255, 255, 0.10) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: none !important;
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.4), inset 0 1px 1px 0 rgba(255, 255, 255, 0.20) !important;
+}
+
+html:not(.dark) .fi-sidebar-item-active > .fi-sidebar-item-btn {
+    background: rgba(255, 255, 255, 0.65) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: none !important;
+    box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.12), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+.fi-sidebar-item-btn:hover {
+    transform: translateX(3px);
+}
+
+/* --------------------------------------------------------------------------
+   4. Faded Blurred Header (Top Hard Blur -> Dissolves into Page)
+   -------------------------------------------------------------------------- */
+.fi-topbar-ctn {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 20 !important;
+    overflow: visible !important;
+    border: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    --tw-ring-color: transparent !important;
+    --tw-ring-shadow: none !important;
+}
+
+.fi-topbar {
+    position: relative !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    --tw-ring-color: transparent !important;
+    --tw-ring-shadow: none !important;
+}
+
+.fi-topbar::after {
+    display: none !important;
+    content: none !important;
+}
+
+.fi-topbar::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    bottom: -1.5rem !important;
+    z-index: -1 !important;
+    pointer-events: none !important;
+
+    backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(var(--lg-header-blur, 32px)) !important;
+    -webkit-backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(var(--lg-header-blur, 32px)) !important;
+
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.95) 25%,
+        rgba(0, 0, 0, 0.60) 60%,
+        rgba(0, 0, 0, 0.15) 85%,
+        transparent 100%
+    ) !important;
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.95) 25%,
+        rgba(0, 0, 0, 0.60) 60%,
+        rgba(0, 0, 0, 0.15) 85%,
+        transparent 100%
+    ) !important;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.65) 0%,
+        rgba(255, 255, 255, 0.35) 45%,
+        rgba(255, 255, 255, 0.08) 80%,
+        transparent 100%
+    ) !important;
+}
+
+html.dark .fi-topbar::before,
+.dark .fi-topbar::before {
+    background: linear-gradient(
+        to bottom,
+        rgba(8, 12, 22, 0.85) 0%,
+        rgba(8, 12, 22, 0.50) 45%,
+        rgba(8, 12, 22, 0.08) 80%,
+        transparent 100%
+    ) !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. Seamless Liquid Glass Tables, Cards, Sections & Widgets
+   - True Translucency to show background light refraction!
+   - Cursor-tracking liquid specular highlight
+   -------------------------------------------------------------------------- */
+.fi-ta-ctn,
+.fi-section:not(.fi-section-not-contained),
+.fi-wi-stats-overview-stat,
+.fi-wi-chart {
+    position: relative !important;
+    outline: none !important;
+    --tw-ring-color: transparent !important;
+    --tw-ring-shadow: none !important;
+    --tw-ring-offset-shadow: none !important;
+    border-radius: 1.25rem !important;
+    overflow: hidden !important;
+    transition: transform 0.35s var(--liquid-spring), box-shadow 0.35s ease !important;
+}
+
+/* Uncontained sections (e.g. Stats Overview header wrapper) must remain transparent and overflow visible */
+.fi-section.fi-section-not-contained,
+.fi-wi-stats-overview .fi-section,
+.fi-wi-stats-overview .fi-section-not-contained {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    padding: 0 !important;
+}
+
+.fi-wi-stats-overview .fi-section-header {
+    margin-bottom: 1rem !important;
+    padding: 0.25rem 0.25rem !important;
+}
+
+.fi-wi-stats-overview .fi-section-header-heading {
+    font-size: 1.15rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.015em !important;
+    line-height: 1.5 !important;
+}
+
+.fi-wi-stats-overview .fi-section-header-description {
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+    margin-top: 0.25rem !important;
+}
+
+/* Dark Mode Liquid Glass */
+html.dark .fi-ta-ctn,
+.dark .fi-ta-ctn,
+html.dark .fi-section:not(.fi-section-not-contained),
+.dark .fi-section:not(.fi-section-not-contained),
+html.dark .fi-wi-stats-overview-stat,
+.dark .fi-wi-stats-overview-stat,
+html.dark .fi-wi-chart,
+.dark .fi-wi-chart {
+    background: rgba(13, 20, 36, 0.60) !important;
+    backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(20px) !important;
+    -webkit-backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: var(--lg-liquid-shadow-dark) !important;
+}
+
+/* Light Mode Liquid Glass: Translucent Luminous Glass */
+html:not(.dark) .fi-ta-ctn,
+html:not(.dark) .fi-section:not(.fi-section-not-contained),
+html:not(.dark) .fi-wi-stats-overview-stat,
+html:not(.dark) .fi-wi-chart {
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(20px) !important;
+    -webkit-backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: var(--lg-liquid-shadow-light) !important;
+}
+
+/* Liquid Floating Response on Hover */
+.fi-wi-stats-overview-stat:hover,
+.fi-wi-chart:hover {
+    transform: translateY(-3px) scale(1.005);
+}
+
+html.dark .fi-section:not(.fi-section-not-contained):hover,
+.dark .fi-section:not(.fi-section-not-contained):hover {
+    box-shadow: 
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.30),
+        0 28px 65px -10px rgba(0, 0, 0, 0.85),
+        0 0 35px color-mix(in srgb, var(--color-primary-500, var(--primary-500, #10b981)) 20%, transparent) !important;
+}
+
+html:not(.dark) .fi-section:not(.fi-section-not-contained):hover {
+    box-shadow: 
+        inset 0 1px 2px 0 rgba(255, 255, 255, 1),
+        0 24px 60px -8px rgba(99, 102, 241, 0.25),
+        0 0 30px color-mix(in srgb, var(--color-primary-500, var(--primary-500, #10b981)) 15%, transparent) !important;
+}
+
+/* Table header transparency & clean glass rows without harsh divide borders */
+.fi-ta-header-ctn,
+.fi-ta-content,
+.fi-ta-header-toolbar {
+    background: transparent !important;
+    border: none !important;
+}
+
+.fi-ta-table {
+    background: transparent !important;
+    border: none !important;
+}
+
+.fi-ta-row {
+    border-color: rgba(255, 255, 255, 0.05) !important;
+    transition: background-color 0.2s ease-in-out !important;
+}
+
+html.dark .fi-ta-row:hover,
+.dark .fi-ta-row:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+html:not(.dark) .fi-ta-row:hover {
+    background-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Search input toolbar & Global search in Header */
+.fi-ta-header-toolbar .fi-input-wrp,
+.fi-global-search .fi-input-wrp {
+    border: none !important;
+    border-radius: 9999px !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    transition: all 0.3s var(--liquid-spring) !important;
+}
+
+html.dark .fi-ta-header-toolbar .fi-input-wrp,
+.dark .fi-ta-header-toolbar .fi-input-wrp,
+html.dark .fi-global-search .fi-input-wrp,
+.dark .fi-global-search .fi-input-wrp {
+    background: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.20), inset 0 2px 4px 0 rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark .fi-global-search .fi-input-wrp:focus-within,
+.dark .fi-global-search .fi-input-wrp:focus-within {
+    background: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.30), 0 0 16px color-mix(in srgb, var(--color-primary-500, var(--primary-500, #f59e0b)) 35%, transparent) !important;
+}
+
+html:not(.dark) .fi-ta-header-toolbar .fi-input-wrp,
+html:not(.dark) .fi-global-search .fi-input-wrp {
+    background: rgba(255, 255, 255, 0.65) !important;
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9), inset 0 1px 3px 0 rgba(0, 0, 0, 0.06) !important;
+}
+
+html:not(.dark) .fi-global-search .fi-input-wrp:focus-within {
+    background: rgba(255, 255, 255, 0.85) !important;
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 1), 0 0 16px color-mix(in srgb, var(--color-primary-500, var(--primary-500, #f59e0b)) 30%, transparent) !important;
+}
+
+/* Global search dropdown results - Floating Liquid Glass */
+.fi-global-search-results-ctn {
+    border-radius: 1.25rem !important;
+    border: none !important;
+    backdrop-filter: blur(28px) saturate(1.4) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(1.4) !important;
+    overflow: hidden !important;
+}
+
+html.dark .fi-global-search-results-ctn,
+.dark .fi-global-search-results-ctn {
+    background: rgba(15, 23, 42, 0.75) !important;
+    box-shadow: var(--lg-liquid-shadow-dark) !important;
+}
+
+html:not(.dark) .fi-global-search-results-ctn {
+    background: rgba(255, 255, 255, 0.78) !important;
+    box-shadow: var(--lg-liquid-shadow-light) !important;
+}
+
+.fi-ta-pagination {
+    background: transparent !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. Liquid Glass Apple-Style Modals (Center Dialogs)
+   -------------------------------------------------------------------------- */
+.fi-modal {
+    z-index: 99990 !important;
+}
+
+.fi-modal-close-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99991 !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html:not(.dark) .fi-modal-close-overlay {
+    background: rgba(15, 23, 42, 0.25) !important;
+    backdrop-filter: blur(28px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(160%) !important;
+}
+
+html.dark .fi-modal-close-overlay,
+.dark .fi-modal-close-overlay {
+    background: rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: blur(28px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+}
+
+.fi-modal-window-ctn {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99995 !important;
+}
+
+/* Modal Window Base */
+.fi-modal:not(.fi-modal-slide-over) > .fi-modal-window-ctn > .fi-modal-window {
+    border: none !important;
+    outline: none !important;
+    --tw-ring-color: transparent !important;
+    --tw-ring-shadow: none !important;
+    backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(36px) !important;
+    -webkit-backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(36px) !important;
+    border-radius: 1.75rem !important;
+    overflow: hidden !important;
+    padding: 0.5rem !important;
+}
+
+/* Dark Mode Modal Window */
+html.dark .fi-modal:not(.fi-modal-slide-over) > .fi-modal-window-ctn > .fi-modal-window,
+.dark .fi-modal:not(.fi-modal-slide-over) > .fi-modal-window-ctn > .fi-modal-window {
+    background: rgba(12, 18, 32, 0.78) !important;
+    box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.24),
+        inset 0 -1px 1px 0 rgba(255, 255, 255, 0.04),
+        0 30px 80px -10px rgba(0, 0, 0, 0.90) !important;
+    color: #f8fafc !important;
+}
+
+/* Light Mode Modal Window */
+html:not(.dark) .fi-modal:not(.fi-modal-slide-over) > .fi-modal-window-ctn > .fi-modal-window {
+    background: rgba(255, 255, 255, 0.75) !important;
+    box-shadow: 
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04),
+        0 30px 75px -10px rgba(99, 102, 241, 0.22) !important;
+    color: #0f172a !important;
+}
+
+.fi-modal .fi-modal-header,
+.fi-modal .fi-modal-footer {
+    background: transparent !important;
+    border: none !important;
+}
+
+.fi-modal .fi-modal-header {
+    padding: 1.5rem 1.75rem 0.5rem 1.75rem !important;
+}
+
+.fi-modal .fi-modal-content {
+    padding: 0.5rem 1.75rem 1.25rem 1.75rem !important;
+}
+
+.fi-modal .fi-modal-footer {
+    padding: 0.5rem 1.75rem 1.5rem 1.75rem !important;
+}
+
+/* Form Inputs inside Modal */
+html.dark .fi-modal .fi-input-wrp,
+.dark .fi-modal .fi-input-wrp {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: none !important;
+    border-radius: 0.75rem !important;
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.12), inset 0 2px 4px 0 rgba(0, 0, 0, 0.35) !important;
+    color: #ffffff !important;
+}
+
+html:not(.dark) .fi-modal .fi-input-wrp {
+    background: rgba(255, 255, 255, 0.65) !important;
+    border: none !important;
+    border-radius: 0.75rem !important;
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9), inset 0 1px 3px 0 rgba(0, 0, 0, 0.08) !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. Liquid Glass Slide-over (Slider) Drawer Modals
+   -------------------------------------------------------------------------- */
+.fi-modal.fi-modal-slide-over > .fi-modal-window-ctn > .fi-modal-window {
+    z-index: 100000 !important;
+    border: none !important;
+    outline: none !important;
+    --tw-ring-color: transparent !important;
+    --tw-ring-shadow: none !important;
+    backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(36px) !important;
+    -webkit-backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(36px) !important;
+    overflow-y: auto !important;
+    padding-top: 1.25rem !important;
+}
+
+html.dark .fi-modal.fi-modal-slide-over > .fi-modal-window-ctn > .fi-modal-window,
+.dark .fi-modal.fi-modal-slide-over > .fi-modal-window-ctn > .fi-modal-window {
+    background: rgba(10, 16, 30, 0.82) !important;
+    box-shadow: inset 1px 0 1px 0 rgba(255, 255, 255, 0.18), -25px 0 75px 0 rgba(0, 0, 0, 0.85) !important;
+    color: #f8fafc !important;
+}
+
+html:not(.dark) .fi-modal.fi-modal-slide-over > .fi-modal-window-ctn > .fi-modal-window {
+    background: rgba(255, 255, 255, 0.82) !important;
+    box-shadow: inset 1px 0 1px 0 rgba(255, 255, 255, 0.9), -20px 0 60px 0 rgba(99, 102, 241, 0.18) !important;
+    color: #0f172a !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. Liquid Glass Dropdowns
+   -------------------------------------------------------------------------- */
+.fi-dropdown-panel {
+    z-index: 9990 !important;
+    border: none !important;
+    outline: none !important;
+    --tw-ring-color: transparent !important;
+    --tw-ring-shadow: none !important;
+    backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(24px) !important;
+    -webkit-backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(24px) !important;
+    border-radius: 1.15rem !important;
+    padding: 0.5rem !important;
+}
+
+html.dark .fi-dropdown-panel,
+.dark .fi-dropdown-panel {
+    background: rgba(12, 18, 32, 0.82) !important;
+    box-shadow: var(--lg-liquid-shadow-dark) !important;
+}
+
+html:not(.dark) .fi-dropdown-panel {
+    background: rgba(255, 255, 255, 0.82) !important;
+    box-shadow: var(--lg-liquid-shadow-light) !important;
+}
+
+.fi-dropdown-list-item {
+    border-radius: 0.65rem !important;
+    transition: all 0.25s var(--liquid-spring) !important;
+}
+
+html.dark .fi-dropdown-list-item:hover,
+.dark .fi-dropdown-list-item:hover {
+    background: rgba(255, 255, 255, 0.10) !important;
+    transform: translateX(3px);
+}
+
+html:not(.dark) .fi-dropdown-list-item:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+    transform: translateX(3px);
+}
+
+/* ==========================================================================
+   9. AUTHENTIC LIQUID INTERACTION FLAVOUR (Physics & Animations)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   A. Crystal Clear Liquid Checkboxes (.fi-checkbox-input)
+   - Synchronized dynamically with Panel Primary Color
+   -------------------------------------------------------------------------- */
+input[type='checkbox'].fi-checkbox-input,
+.fi-ta-record-checkbox,
+.fi-ta-page-checkbox {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    min-width: 1.25rem !important;
+    min-height: 1.25rem !important;
+    border-radius: 0.45rem !important;
+    cursor: pointer !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    outline: none !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    --tw-ring-shadow: none !important;
+    --tw-ring-color: transparent !important;
+    transition: transform 0.35s var(--liquid-spring), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+    will-change: transform;
+}
+
+/* UNCHECKED STATE (Frosted Glass Rim + Liquid Translucent Well) */
+input[type='checkbox'].fi-checkbox-input:not(:checked),
+.fi-ta-record-checkbox:not(:checked),
+.fi-ta-page-checkbox:not(:checked) {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    background-image: none !important;
+    border: 2px solid rgba(148, 163, 184, 0.5) !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+    transform: scale(1) !important;
+}
+
+html:not(.dark) input[type='checkbox'].fi-checkbox-input:not(:checked),
+html:not(.dark) .fi-ta-record-checkbox:not(:checked),
+html:not(.dark) .fi-ta-page-checkbox:not(:checked) {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    border: 2px solid rgba(148, 163, 184, 0.65) !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08) !important;
+}
+
+input[type='checkbox'].fi-checkbox-input:not(:checked):hover,
+.fi-ta-record-checkbox:not(:checked):hover,
+.fi-ta-page-checkbox:not(:checked):hover {
+    transform: scale(1.10) !important;
+    border-color: var(--color-primary-500, var(--primary-500, #10b981)) !important;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--color-primary-500, var(--primary-500, #10b981)) 40%, transparent) !important;
+}
+
+/* CHECKED STATE (Liquid Primary Glow + Crisp White Checkmark) */
+input[type='checkbox'].fi-checkbox-input:checked,
+.fi-ta-record-checkbox:checked,
+.fi-ta-page-checkbox:checked,
+input[type='checkbox'].fi-checkbox-input[checked],
+.fi-ta-record-checkbox[checked],
+.fi-ta-page-checkbox[checked] {
+    background-color: var(--color-primary-600, var(--primary-600, #10b981)) !important;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='%23ffffff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E") !important;
+    background-size: 85% 85% !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    border: 2px solid var(--color-primary-600, var(--primary-600, #10b981)) !important;
+    box-shadow: 0 0 12px color-mix(in srgb, var(--color-primary-500, var(--primary-500, #10b981)) 60%, transparent), inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+    transform: scale(1.06) !important;
+    animation: fi-liquid-pop 0.35s var(--liquid-spring) forwards !important;
+}
+
+html.dark input[type='checkbox'].fi-checkbox-input:checked,
+.dark input[type='checkbox'].fi-checkbox-input:checked,
+html.dark .fi-ta-record-checkbox:checked,
+.dark .fi-ta-record-checkbox:checked,
+html.dark .fi-ta-page-checkbox:checked,
+.dark .fi-ta-page-checkbox:checked {
+    background-color: var(--color-primary-500, var(--primary-500, #10b981)) !important;
+    border-color: var(--color-primary-500, var(--primary-500, #10b981)) !important;
+}
+
+input[type='checkbox'].fi-checkbox-input:checked:hover,
+.fi-ta-record-checkbox:checked:hover,
+.fi-ta-page-checkbox:checked:hover {
+    transform: scale(1.14) !important;
+    box-shadow: 0 0 16px color-mix(in srgb, var(--color-primary-500, var(--primary-500, #10b981)) 75%, transparent), inset 0 1px 2px rgba(255, 255, 255, 0.7) !important;
+}
+
+@keyframes fi-liquid-pop {
+    0% { transform: scale(0.70); }
+    55% { transform: scale(1.18); }
+    100% { transform: scale(1.06); }
+}
+
+/* --------------------------------------------------------------------------
+   B. Mercury / Liquid Goo Toggle Switch (.fi-toggle)
+   - Preserves Filament native 44px x 24px pill geometry & 20px thumb
+   - Specular Glass Track matching Panel Primary Color
+   -------------------------------------------------------------------------- */
+.fi-toggle,
+div.fi-toggle[role="switch"],
+button.fi-toggle[role="switch"] {
+    position: relative !important;
+    border: 2px solid transparent !important;
+    box-sizing: border-box !important;
+    width: 2.75rem !important;
+    height: 1.5rem !important;
+    border-radius: 9999px !important;
+    cursor: pointer !important;
+    outline: none !important;
+    --tw-ring-color: transparent !important;
+    --tw-ring-shadow: none !important;
+    transition: background 0.35s var(--liquid-spring), box-shadow 0.35s ease !important;
+}
+
+/* OFF Track: Frosted Deep Liquid Glass Well */
+html.dark .fi-toggle.fi-toggle-off,
+.dark .fi-toggle.fi-toggle-off,
+html.dark .fi-toggle[aria-checked="false"],
+.dark .fi-toggle[aria-checked="false"] {
+    background: rgba(255, 255, 255, 0.10) !important;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.45), inset 0 0 1px 1px rgba(255, 255, 255, 0.12) !important;
+}
+
+html:not(.dark) .fi-toggle.fi-toggle-off,
+html:not(.dark) .fi-toggle[aria-checked="false"] {
+    background: rgba(0, 0, 0, 0.14) !important;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.15), inset 0 0 1px 1px rgba(255, 255, 255, 0.6) !important;
+}
+
+.fi-toggle.fi-toggle-off:hover,
+.fi-toggle[aria-checked="false"]:hover {
+    background: rgba(255, 255, 255, 0.16) !important;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.40), inset 0 0 1px 1px rgba(255, 255, 255, 0.22) !important;
+}
+html:not(.dark) .fi-toggle.fi-toggle-off:hover,
+html:not(.dark) .fi-toggle[aria-checked="false"]:hover {
+    background: rgba(0, 0, 0, 0.20) !important;
+}
+
+/* ON Track: Radiant Liquid Glass Pool matching Panel Primary Color */
+.fi-toggle.fi-toggle-on,
+.fi-toggle[aria-checked="true"] {
+    background: linear-gradient(135deg, 
+        color-mix(in srgb, var(--color-primary-400, var(--primary-400, #34d399)) 85%, white) 0%, 
+        var(--color-primary-500, var(--primary-500, #10b981)) 48%, 
+        var(--color-primary-600, var(--primary-600, #059669)) 100%
+    ) !important;
+    box-shadow: 
+        0 0 12px color-mix(in srgb, var(--color-primary-500, var(--primary-500, #10b981)) 50%, transparent),
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.60),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.20) !important;
+}
+
+html.dark .fi-toggle.fi-toggle-on,
+.dark .fi-toggle.fi-toggle-on,
+html.dark .fi-toggle[aria-checked="true"],
+.dark .fi-toggle[aria-checked="true"] {
+    background: linear-gradient(135deg, 
+        color-mix(in srgb, var(--color-primary-400, var(--primary-400, #34d399)) 80%, white) 0%, 
+        var(--color-primary-500, var(--primary-500, #10b981)) 50%, 
+        var(--color-primary-600, var(--primary-600, #059669)) 100%
+    ) !important;
+    box-shadow: 
+        0 0 14px color-mix(in srgb, var(--color-primary-500, var(--primary-500, #10b981)) 55%, transparent),
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.35) !important;
+}
+
+.fi-toggle.fi-toggle-on:hover,
+.fi-toggle[aria-checked="true"]:hover {
+    box-shadow: 
+        0 0 16px color-mix(in srgb, var(--color-primary-500, var(--primary-500, #10b981)) 70%, transparent),
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.75),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.20) !important;
+}
+
+/* Toggle Thumb (Liquid Mercury Droplet with Specular Depth) */
+.fi-toggle > div:first-child {
+    border-radius: 9999px !important;
+    background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f1f5f9 65%, #cbd5e1 100%) !important;
+    box-shadow: 
+        1px -1px 2px hsl(0 0% 100% / 0.8) inset,
+        0px -1px 2px hsl(0 0% 100% / 0.8) inset,
+        -1px -1px 2px hsl(0 0% 100% / 0.8) inset,
+        1px 1px 2px hsl(0 0% 30% / 0.35) inset,
+        -3px 2px 5px -2px hsl(0 0% 30% / 0.20) inset,
+        0 2px 6px -1px rgba(0, 0, 0, 0.30) !important;
+    transition: transform 0.35s var(--liquid-spring), translate 0.35s var(--liquid-spring), box-shadow 0.25s ease !important;
+    will-change: transform, translate;
+}
+
+.fi-toggle:hover > div:first-child {
+    box-shadow: 
+        1px -1px 2px hsl(0 0% 100% / 0.95) inset,
+        0px -1px 2px hsl(0 0% 100% / 0.95) inset,
+        -1px -1px 2px hsl(0 0% 100% / 0.95) inset,
+        1px 1px 2px hsl(0 0% 30% / 0.35) inset,
+        0 3px 8px -1px rgba(0, 0, 0, 0.38) !important;
+}
+
+/* Liquid Droplet Meniscus Compression on Active/Click */
+.fi-toggle:active > div:first-child {
+    transform: scale(1.15, 0.88) !important;
+}
+
+/* --------------------------------------------------------------------------
+   C. Liquid Fluid Buttons (.fi-btn)
+   - Spring bounce & liquid gelatinous compression with primary glow
+   -------------------------------------------------------------------------- */
+.fi-btn {
+    position: relative !important;
+    overflow: hidden !important;
+    border: none !important;
+    outline: none !important;
+    --tw-ring-shadow: none !important;
+    --tw-ring-color: transparent !important;
+    border-radius: 0.95rem !important;
+    transition: transform 0.45s var(--liquid-spring), box-shadow 0.35s ease, background 0.3s ease !important;
+    will-change: transform;
+}
+
+/* Hover: Floating Droplet Lift */
+.fi-btn:hover {
+    transform: translateY(-3px) scale(1.028) !important;
+}
+
+/* Active: Liquid Jelly Squish */
+.fi-btn:active {
+    transform: translateY(1px) scale(0.96, 0.93) !important;
+}
+
+/* Primary Liquid Button with Specular Highlights - Dynamic Primary Color */
+.fi-btn.fi-color-primary,
+.fi-btn-color-primary {
+    box-shadow: 
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.20),
+        0 8px 20px -4px color-mix(in srgb, var(--color-primary-500, var(--primary-500, #10b981)) 45%, transparent) !important;
+}
+
+.fi-btn.fi-color-primary:hover,
+.fi-btn-color-primary:hover {
+    box-shadow: 
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.60),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.20),
+        0 14px 30px -4px color-mix(in srgb, var(--color-primary-500, var(--primary-500, #10b981)) 60%, transparent) !important;
+}
+
+/* Liquid Light Wave Beam on Hover */
+.fi-btn::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 60% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent) !important;
+    transform: skewX(-25deg) !important;
+    transition: none !important;
+    pointer-events: none !important;
+    z-index: 2 !important;
+}
+
+.fi-btn:hover::after {
+    left: 200% !important;
+    transition: left 0.75s ease-out !important;
+}
+
+/* --------------------------------------------------------------------------
+   D. Bills Showcase Glass Styles
+   -------------------------------------------------------------------------- */
+.fi-bills-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.fi-bills-row {
+    display: grid !important;
+    grid-template-columns: 2fr 1.5fr 1fr 1fr !important;
+    align-items: center !important;
+    padding: 0.85rem 1rem !important;
+    border-radius: 1rem !important;
+    transition: all 0.35s var(--liquid-spring) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    cursor: pointer !important;
+}
+
+.fi-bills-row:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    transform: translateX(5px) scale(1.01) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
+}

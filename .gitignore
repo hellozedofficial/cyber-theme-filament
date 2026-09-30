@@ -1,0 +1,22 @@
+/vendor/
+/node_modules/
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+.phpunit.cache/
+composer.lock
+package-lock.json
+
+# Workbench
+/workbench/.env
+/workbench/database/database.sqlite
+/workbench/storage/
+testbench.yaml
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store

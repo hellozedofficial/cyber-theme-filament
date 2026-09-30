@@ -1,0 +1,31 @@
+<?php
+
+namespace Workbench\App\Models;
+
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+class User extends Authenticatable implements FilamentUser
+{
+    use HasFactory, Notifiable;
+
+    protected static function newFactory()
+    {
+        return \Workbench\Database\Factories\UserFactory::new();
+    }
+
+    protected $guarded = [];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
+    }
+}
