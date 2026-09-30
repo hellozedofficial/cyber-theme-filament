@@ -8,6 +8,18 @@ A premium, futuristic **Cyber Glass & Liquid Glassmorphism** theme and UI plugin
 
 ---
 
+## 🌌 Overview
+
+**Cyber Glass** is a next-generation, premium UI theme and enhancement suite designed exclusively for **Filament 5** and **Laravel 11/12**. Drawing deep inspiration from state-of-the-art fintech platforms like Revolut Business, high-end Apple glassmorphism, and cyberpunk optical aesthetics, Cyber Glass completely transcends conventional dashboard themes by introducing true optical physics and tactile fluidity to your admin panel.
+
+Unlike basic backdrop-filter skins that merely tint containers, Cyber Glass features an authentic SVG-powered chromatic dispersion pipeline, specular refraction borders, and multi-layered depth. Every surface—from data tables and metric stat cards to slide-over drawers and dialog modals—radiates luminous refraction while maintaining flawless typographic legibility in both light and dark modes. An ambient cyber mesh aura gently illuminates the canvas background, harmonizing dynamically with your configured Filament primary color palette.
+
+Where Cyber Glass truly comes alive is in its physics-driven liquid interactions. Form elements are treated as fluid entities: toggle switches mimic mercury droplets sliding across frictionless glass with 22-stop spring elasticity; checkboxes pop with buoyant tactile feedback; and action buttons exhibit gelatinous squash-and-stretch compression accompanied by liquid light sweep beams on hover. The signature progressive faded header dissolves seamlessly from a crystalline top blur into an imperceptible mist, allowing dashboard content to glide effortlessly underneath.
+
+Engineered with pure CSS performance, hardware-accelerated transforms, and non-intrusive blade render hooks, Cyber Glass delivers a breathtaking, AAA-grade software aesthetic without sacrificing execution speed, responsiveness, or core Filament functionality. Elevate your application into a mesmerizing, luxury-grade digital experience that commands attention from the very first click.
+
+---
+
 ## ✨ Features
 
 - **Cyber Ambient Mesh Glow**: Ethereal multi-stop radial glow orbs dynamically harmonized with your Filament panel's primary color palette in both light and dark modes.
