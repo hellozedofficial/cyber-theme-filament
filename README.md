@@ -1,4 +1,4 @@
-# Cyber Glass Theme for Filament 🪟⚡
+# Cyber Glass Theme for Filament
 
 A premium, futuristic **Cyber Glass & Liquid Glassmorphism** theme and UI plugin for **Filament 5** & **Laravel 11/12**, featuring authentic SVG chromatic dispersion, progressive blur headers, and physics-driven liquid interactions.
 
@@ -8,7 +8,7 @@ A premium, futuristic **Cyber Glass & Liquid Glassmorphism** theme and UI plugin
 
 ---
 
-## 🌌 Overview
+## Overview
 
 **Cyber Glass** is a next-generation, premium UI theme and enhancement suite designed exclusively for **Filament 5** and **Laravel 11/12**. Drawing deep inspiration from state-of-the-art fintech platforms like Revolut Business, high-end Apple glassmorphism, and cyberpunk optical aesthetics, Cyber Glass completely transcends conventional dashboard themes by introducing true optical physics and tactile fluidity to your admin panel.
 
@@ -20,7 +20,35 @@ Engineered with pure CSS performance, hardware-accelerated transforms, and non-i
 
 ---
 
-## ✨ Features
+## 📸 Visual Showcase (Light vs. Dark Mode)
+
+Experience the ultra-clean, high-contrast aesthetics in both Light and Dark modes.
+
+### 📊 1. Analytics Overview & Dynamic Charts
+| Light Mode | Dark Mode |
+| :---: | :---: |
+| <img src="art/dashboard-light.png" alt="Cyber Glass Dashboard - Light Mode" width="100%" /> | <img src="art/dashboard-dark.png" alt="Cyber Glass Dashboard - Dark Mode" width="100%" /> |
+
+### ⚡ 2. Interactive Data Tables & Liquid Controls
+*Featuring liquid mercury toggles, crystal-clear checkboxes, and ambient row highlights.*
+| Light Mode | Dark Mode |
+| :---: | :---: |
+| <img src="art/table-light.png" alt="Users Table - Light Mode" width="100%" /> | <img src="art/table-dark.png" alt="Users Table - Dark Mode" width="100%" /> |
+
+### 🪟 3. Cyber Glass Dialog Modals & Form Controls
+*Specular glass refraction borders, non-intrusive backdrop blur, and squash-and-stretch buttons.*
+| Light Mode | Dark Mode |
+| :---: | :---: |
+| <img src="art/modal-light.png" alt="Edit User Modal - Light Mode" width="100%" /> | <img src="art/modal-dark.png" alt="Edit User Modal - Dark Mode" width="100%" /> |
+
+### 👤 4. Floating Account & Profile Glass Panels
+| Light Mode | Dark Mode |
+| :---: | :---: |
+| <img src="art/profile-light.png" alt="Profile Modal - Light Mode" width="100%" /> | <img src="art/profile-dark.png" alt="Profile Modal - Dark Mode" width="100%" /> |
+
+---
+
+## Features
 
 - **Cyber Ambient Mesh Glow**: Ethereal multi-stop radial glow orbs dynamically harmonized with your Filament panel's primary color palette in both light and dark modes.
 - **Progressive Faded Blurred Header**: Modern sticky topbar with a crisp blur at the top that dissolves gracefully into a transparent mist at the bottom edge.
@@ -34,7 +62,7 @@ Engineered with pure CSS performance, hardware-accelerated transforms, and non-i
 
 ---
 
-## 🚀 Requirements
+## Requirements
 
 - **PHP**: ^8.2 or ^8.3
 - **Laravel**: ^11.28 or ^12.0
@@ -42,7 +70,7 @@ Engineered with pure CSS performance, hardware-accelerated transforms, and non-i
 
 ---
 
-## 📦 Installation (Commercial / Private Setup)
+## Installation (Commercial / Private Setup)
 
 Add this repository to your project's `composer.json`:
 
@@ -69,7 +97,7 @@ php artisan vendor:publish --tag="filament-cyber-glass-config"
 
 ---
 
-## 🎨 Usage
+## Usage
 
 Register `CyberGlassPlugin` in your Filament Panel Provider (e.g. `app/Providers/Filament/AdminPanelProvider.php`):
 
@@ -96,7 +124,7 @@ public function panel(Panel $panel): Panel
 
 ---
 
-## ⚙️ Configuration (`config/cyber-glass.php`)
+## Configuration (`config/cyber-glass.php`)
 
 ```php
 return [
@@ -144,22 +172,7 @@ return [
 
 ---
 
-## 🛠 Local Development & Testing
-
-```bash
-# Start the live preview testbench server (http://127.0.0.1:8000/admin)
-composer serve
-
-# Run test suite
-composer test
-
-# Rebuild assets and testbench database
-composer build
-```
-
----
-
-## 📄 Commercial License
+## Commercial License
 
 Copyright (c) HelloZed. All rights reserved.
 
