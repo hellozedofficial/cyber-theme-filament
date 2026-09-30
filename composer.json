@@ -1,17 +1,19 @@
 {
-    "name": "hellozedofficial/filament-cyber-glass",
-    "description": "Cyber Glass theme and liquid UI enhancements for Filament 5",
+    "name": "hellozedofficial/cyber-theme-filament",
+    "description": "Premium Cyber Glass theme and liquid UI enhancements for Filament 5",
     "keywords": [
         "laravel",
         "filament",
         "filament-plugin",
+        "filament-theme",
+        "cyber-theme-filament",
         "cyber-glass",
         "liquid-glass",
         "glassmorphism",
         "theme"
     ],
-    "homepage": "https://github.com/hellozedofficial/filament-cyber-glass",
-    "license": "MIT",
+    "homepage": "https://github.com/hellozedofficial/cyber-theme-filament",
+    "license": "proprietary",
     "authors": [
         {
             "name": "HelloZed",

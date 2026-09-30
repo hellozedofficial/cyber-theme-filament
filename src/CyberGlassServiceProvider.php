@@ -34,6 +34,10 @@ class CyberGlassServiceProvider extends PackageServiceProvider
     {
         FilamentAsset::register([
             Css::make('filament-cyber-glass', __DIR__ . '/../resources/css/filament-cyber-glass.css'),
+        ], package: 'hellozedofficial/cyber-theme-filament');
+
+        FilamentAsset::register([
+            Css::make('filament-cyber-glass', __DIR__ . '/../resources/css/filament-cyber-glass.css'),
         ], package: 'hellozedofficial/filament-cyber-glass');
 
         FilamentAsset::register([

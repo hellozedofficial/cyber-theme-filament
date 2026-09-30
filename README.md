@@ -1,10 +1,10 @@
-# Filament Cyber Glass Theme
+# Cyber Glass Theme for Filament 🪟⚡
 
-An ultra-sleek, futuristic **Cyber Glass & Liquid Glassmorphism** theme and UI plugin for **Filament 5** & **Laravel 11/12**, featuring authentic SVG chromatic dispersion, progressive blur headers, and physics-driven liquid interactions.
+A premium, futuristic **Cyber Glass & Liquid Glassmorphism** theme and UI plugin for **Filament 5** & **Laravel 11/12**, featuring authentic SVG chromatic dispersion, progressive blur headers, and physics-driven liquid interactions.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/hellozedofficial/filament-cyber-glass.svg?style=flat-square)](https://packagist.org/packages/hellozedofficial/filament-cyber-glass)
-[![Total Downloads](https://img.shields.io/packagist/dt/hellozedofficial/filament-cyber-glass.svg?style=flat-square)](https://packagist.org/packages/hellozedofficial/filament-cyber-glass)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE.md)
+[![License](https://img.shields.io/badge/license-Proprietary%20%2F%20Commercial-red.svg?style=flat-square)](LICENSE.md)
+[![Filament](https://img.shields.io/badge/Filament-v5.0-amber.svg?style=flat-square)](https://filamentphp.com)
+[![PHP](https://img.shields.io/badge/PHP-%5E8.2%20%7C%20%5E8.3-blue.svg?style=flat-square)](https://php.net)
 
 ---
 
@@ -18,7 +18,7 @@ An ultra-sleek, futuristic **Cyber Glass & Liquid Glassmorphism** theme and UI p
   - **Dynamic Buttons**: Jelly compression and liquid light beam sweeps on hover.
   - **Cyber Glass Modals & Drawers**: Deep backdrop refraction with specular highlights and border diffusion.
 - **Zero Configuration Necessary**: Works out of the box with Filament 5 panels with full customization capabilities.
-- **100% Backward Compatibility**: Drop-in replacement for `LiquidGlassPlugin`.
+- **100% Backward Compatibility**: Seamless drop-in replacement for `LiquidGlassPlugin`.
 
 ---
 
@@ -30,32 +30,23 @@ An ultra-sleek, futuristic **Cyber Glass & Liquid Glassmorphism** theme and UI p
 
 ---
 
-## 📦 Installation
+## 📦 Installation (Commercial / Private Setup)
 
-Install the package via Composer:
-
-```bash
-composer require hellozedofficial/filament-cyber-glass
-```
-
-### Direct Git Repository (VCS) Setup
-If installing directly from GitHub before public Packagist indexing:
-
-Add the repository to your project's `composer.json`:
+Add this repository to your project's `composer.json`:
 
 ```json
 "repositories": [
     {
         "type": "vcs",
-        "url": "https://github.com/hellozedofficial/filament-cyber-glass.git"
+        "url": "git@github.com:hellozedofficial/cyber-theme-filament.git"
     }
 ]
 ```
 
-Then run:
+Then require the package:
 
 ```bash
-composer require hellozedofficial/filament-cyber-glass:^1.0
+composer require hellozedofficial/cyber-theme-filament:^1.0
 ```
 
 Optionally publish the configuration file:
@@ -156,12 +147,8 @@ composer build
 
 ---
 
-## 🤝 Contributing
+## 📄 Commercial License
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Copyright (c) HelloZed. All rights reserved.
 
----
-
-## 📄 License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+This software is commercial and proprietary. Unauthorized copying, modification, redistribution, or sharing of this file/software, via any medium, is strictly prohibited without a valid commercial license agreement from HelloZed.
