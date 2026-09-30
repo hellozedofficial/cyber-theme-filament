@@ -72,7 +72,7 @@ Experience the ultra-clean, high-contrast aesthetics in both Light and Dark mode
 
 ---
 
-## 📦 Installation
+## Installation
 
 Install the package via Composer:
 
@@ -88,7 +88,7 @@ php artisan vendor:publish --tag="filament-cyber-glass-config"
 
 ---
 
-## 🎨 Usage
+##s Usage
 
 Register `CyberGlassPlugin` in your Filament Panel Provider (e.g. `app/Providers/Filament/AdminPanelProvider.php`):
 
@@ -115,7 +115,7 @@ public function panel(Panel $panel): Panel
 
 ---
 
-## ⚙️ Configuration (`config/cyber-glass.php`)
+## Configuration (`config/cyber-glass.php`)
 
 ```php
 return [
@@ -163,7 +163,7 @@ return [
 
 ---
 
-## 🛠 Local Development & Testing
+## Local Development & Testing
 
 ```bash
 # Start the live preview testbench server (http://127.0.0.1:8000/admin)
