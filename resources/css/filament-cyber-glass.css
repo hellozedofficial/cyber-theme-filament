@@ -483,6 +483,11 @@ html.dark .fi-modal-close-overlay,
     position: fixed !important;
     inset: 0 !important;
     z-index: 99995 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    scrollbar-width: thin !important;
 }
 
 /* Modal Window Base */
@@ -495,13 +500,19 @@ html.dark .fi-modal-close-overlay,
     -webkit-backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(36px) !important;
     border-radius: 1.75rem !important;
     overflow: hidden !important;
-    padding: 0.5rem !important;
+    padding: 0 !important;
+    max-height: calc(100dvh - 3rem) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
 }
 
 /* Dark Mode Modal Window */
 html.dark .fi-modal:not(.fi-modal-slide-over) > .fi-modal-window-ctn > .fi-modal-window,
 .dark .fi-modal:not(.fi-modal-slide-over) > .fi-modal-window-ctn > .fi-modal-window {
-    background: rgba(12, 18, 32, 0.78) !important;
+    background: rgba(12, 18, 32, 0.85) !important;
     box-shadow: 
         inset 0 1px 1px 0 rgba(255, 255, 255, 0.24),
         inset 0 -1px 1px 0 rgba(255, 255, 255, 0.04),
@@ -511,7 +522,7 @@ html.dark .fi-modal:not(.fi-modal-slide-over) > .fi-modal-window-ctn > .fi-modal
 
 /* Light Mode Modal Window */
 html:not(.dark) .fi-modal:not(.fi-modal-slide-over) > .fi-modal-window-ctn > .fi-modal-window {
-    background: rgba(255, 255, 255, 0.75) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
     box-shadow: 
         inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95),
         inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04),
@@ -526,15 +537,82 @@ html:not(.dark) .fi-modal:not(.fi-modal-slide-over) > .fi-modal-window-ctn > .fi
 }
 
 .fi-modal .fi-modal-header {
-    padding: 1.5rem 1.75rem 0.5rem 1.75rem !important;
+    padding: 1.5rem 1.75rem 0.75rem 1.75rem !important;
+    flex-shrink: 0 !important;
 }
 
 .fi-modal .fi-modal-content {
     padding: 0.5rem 1.75rem 1.25rem 1.75rem !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: thin !important;
 }
 
-.fi-modal .fi-modal-footer {
-    padding: 0.5rem 1.75rem 1.5rem 1.75rem !important;
+.fi-modal:not(.fi-modal-slide-over) .fi-modal-footer {
+    padding: 1rem 1.75rem 1.25rem 1.75rem !important;
+    flex-shrink: 0 !important;
+}
+
+html.dark .fi-modal:not(.fi-modal-slide-over) .fi-modal-footer,
+.dark .fi-modal:not(.fi-modal-slide-over) .fi-modal-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.07) !important;
+    background: rgba(12, 18, 32, 0.45) !important;
+    border-bottom-left-radius: 1.75rem !important;
+    border-bottom-right-radius: 1.75rem !important;
+}
+
+html:not(.dark) .fi-modal:not(.fi-modal-slide-over) .fi-modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+    background: rgba(255, 255, 255, 0.45) !important;
+    border-bottom-left-radius: 1.75rem !important;
+    border-bottom-right-radius: 1.75rem !important;
+}
+
+/* Glass Modal & Drawer Custom Scrollbars */
+.fi-modal-content::-webkit-scrollbar,
+.fi-modal-window-ctn::-webkit-scrollbar,
+.fi-modal-slide-over > .fi-modal-window-ctn > .fi-modal-window::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.fi-modal-content::-webkit-scrollbar-track,
+.fi-modal-window-ctn::-webkit-scrollbar-track,
+.fi-modal-slide-over > .fi-modal-window-ctn > .fi-modal-window::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html.dark .fi-modal-content::-webkit-scrollbar-thumb,
+html.dark .fi-modal-window-ctn::-webkit-scrollbar-thumb,
+html.dark .fi-modal-slide-over > .fi-modal-window-ctn > .fi-modal-window::-webkit-scrollbar-thumb,
+.dark .fi-modal-content::-webkit-scrollbar-thumb,
+.dark .fi-modal-window-ctn::-webkit-scrollbar-thumb,
+.dark .fi-modal-slide-over > .fi-modal-window-ctn > .fi-modal-window::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 9999px;
+}
+
+html.dark .fi-modal-content::-webkit-scrollbar-thumb:hover,
+html.dark .fi-modal-window-ctn::-webkit-scrollbar-thumb:hover,
+.dark .fi-modal-content::-webkit-scrollbar-thumb:hover,
+.dark .fi-modal-window-ctn::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+html:not(.dark) .fi-modal-content::-webkit-scrollbar-thumb,
+html:not(.dark) .fi-modal-window-ctn::-webkit-scrollbar-thumb,
+html:not(.dark) .fi-modal-slide-over > .fi-modal-window-ctn > .fi-modal-window::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.16);
+    border-radius: 9999px;
+}
+
+html:not(.dark) .fi-modal-content::-webkit-scrollbar-thumb:hover,
+html:not(.dark) .fi-modal-window-ctn::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.32);
 }
 
 /* Form Inputs inside Modal */
@@ -567,6 +645,16 @@ html:not(.dark) .fi-modal .fi-input-wrp {
     -webkit-backdrop-filter: var(--filter-id, none) saturate(var(--glass-saturation, 1.35)) blur(36px) !important;
     overflow-y: auto !important;
     padding-top: 1.25rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    scrollbar-width: thin !important;
+}
+
+.fi-modal.fi-modal-slide-over .fi-modal-content {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    min-height: 0 !important;
+    scrollbar-width: thin !important;
 }
 
 html.dark .fi-modal.fi-modal-slide-over > .fi-modal-window-ctn > .fi-modal-window,
@@ -586,7 +674,7 @@ html:not(.dark) .fi-modal.fi-modal-slide-over > .fi-modal-window-ctn > .fi-modal
    8. Liquid Glass Dropdowns
    -------------------------------------------------------------------------- */
 .fi-dropdown-panel {
-    z-index: 9990 !important;
+    z-index: 100050 !important;
     border: none !important;
     outline: none !important;
     --tw-ring-color: transparent !important;
